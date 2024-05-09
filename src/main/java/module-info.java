@@ -3,6 +3,7 @@ module mpb.control_de_personas {
     requires javafx.fxml;
     requires java.sql;
     requires java.desktop;
+    requires lombok;
 
     opens apps to javafx.fxml;
     opens controller to javafx.fxml;

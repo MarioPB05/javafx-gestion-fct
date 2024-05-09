@@ -1,0 +1,80 @@
+/* Estilos para botón tipo primary */
+.button-primary {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-border-color: #007bff;
+    -fx-border-radius: 15px;
+    -fx-padding: 15px 20px;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-min-width: 250px;
+}
+
+.button-primary:hover {
+    -fx-background-color: #0056b3;
+    -fx-border-color: #0056b3;
+}
+
+/* Estilos para botón tipo secondary */
+.button-secondary {
+    -fx-background-color: #6c757d;
+    -fx-text-fill: white;
+    -fx-border-color: #6c757d;
+    -fx-border-radius: 4px;
+    -fx-padding: 8px 16px;
+    -fx-font-size: 14px;
+}
+
+.button-secondary:hover {
+    -fx-background-color: #545b62;
+    -fx-border-color: #4e555b;
+}
+
+/* Estilos para MenuButton con aspecto similar a botón primario */
+.menu-button-primary {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white !important;
+    -fx-border-color: #007bff;
+    -fx-border-radius: 15px;
+    -fx-padding: 8px 20px;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-min-width: 250px;
+}
+
+.menu-button-primary .label {
+    -fx-text-fill: white;
+}
+
+.menu-button-primary .arrow-button {
+    -fx-padding: 0px;
+    -fx-background-color: transparent;
+}
+
+.menu-button-primary:hover {
+    -fx-background-color: #0056b3;
+    -fx-border-color: #0056b3;
+}
+
+.menu-button-primary .arrow {
+    -fx-background-color: white;
+}
+
+/* Estilos para el menú desplegable */
+.menu-button-primary .context-menu {
+    -fx-background-color: white;
+}
+
+.menu-button-primary .menu-item .label {
+    -fx-text-fill: black;
+}
+
+.menu-button-primary .menu-item:hover {
+    -fx-text-fill: white;
+    -fx-background-color: #007bff;
+}
+
+.menu-button-primary .menu-item:hover .label {
+    -fx-text-fill: white;
+    -fx-background-color: #007bff;
+}

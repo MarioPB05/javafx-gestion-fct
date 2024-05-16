@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CompaniesController">
+   <VBox alignment="CENTER" prefHeight="720.0" prefWidth="100.0" spacing="35.0">
+      <Button fx:id="btnCreate" maxHeight="40.0" maxWidth="40.0" mnemonicParsing="false" styleClass="button-icon-primary" />
+      <Button fx:id="btnRemove" maxHeight="40.0" maxWidth="40.0" mnemonicParsing="false" styleClass="button-icon-primary" />
+      <Button fx:id="btnHome" maxHeight="40.0" maxWidth="40.0" mnemonicParsing="false" styleClass="button-icon-primary" />
+   </VBox>
+   <Pane prefHeight="80.0" prefWidth="1280.0" style="-fx-background-color: #007bff;">
+      <Label layoutX="30.0" layoutY="23.0" text="Gestionar Empresas" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER_RIGHT" layoutX="859.0" prefHeight="80.0" prefWidth="407.0" spacing="10.0">
+         <TextField prefHeight="40.0" prefWidth="250.0" promptText="Buscar empresas...">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </TextField>
+         <Button fx:id="btnSearch" maxHeight="40.0" maxWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="button-icon-white">
+            <font>
+               <Font size="1.0" />
+            </font>
+         </Button>
+      </HBox>
+   </Pane>
+   <VBox alignment="CENTER" layoutX="141.0" layoutY="80.0" prefHeight="642.0" prefWidth="900.0">
+      <TableView prefHeight="583.0" prefWidth="942.0" />
+   </VBox>
+   <VBox alignment="TOP_CENTER" layoutX="1040.0" layoutY="80.0" prefHeight="642.0" prefWidth="240.0">
+      <padding>
+         <Insets top="30.0" />
+      </padding>
+      <Label text="Filtrar por Modalidad" textFill="#007bff">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <VBox fx:id="modalitiesContainer" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+         <VBox.margin>
+            <Insets top="15.0" />
+         </VBox.margin>
+      </VBox>
+      <Label text="Filtrar por Jornada" textFill="#007bff">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <VBox fx:id="journeysContainer" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" />
+   </VBox>
+</Pane>

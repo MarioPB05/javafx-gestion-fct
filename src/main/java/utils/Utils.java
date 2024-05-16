@@ -5,8 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -158,7 +162,34 @@ public class Utils {
     }
 
     public static ConexionDB getDatabaseConnection() {
-        return new ConexionDB("jdbc:mariadb://localhost/rent_car_db", "root", "1234");
+        return new ConexionDB("jdbc:mariadb://localhost/gestion_fct_db", "root", "1234");
+    }
+
+    public static void setButtonIcon(Button button, String iconPath) {
+        Image icon = new Image(Objects.requireNonNull(Utils.class.getResourceAsStream(iconPath)));
+        ImageView imageView = new ImageView(icon);
+
+        imageView.setFitHeight(40);
+        imageView.setFitWidth(40);
+
+        button.setGraphic(imageView);
+    }
+
+    public static void setButtonIcon(Button button, String iconPath, int width, int height) {
+        Image icon = new Image(Objects.requireNonNull(Utils.class.getResourceAsStream(iconPath)));
+        ImageView imageView = new ImageView(icon);
+
+        imageView.setFitHeight(height);
+        imageView.setFitWidth(width);
+
+        button.setGraphic(imageView);
+    }
+
+    public static void setButtonTooltip(Button button, String message) {
+        Tooltip tooltip = new Tooltip(message);
+        tooltip.setShowDelay(Duration.millis(200));
+
+        button.setTooltip(tooltip);
     }
 
 }

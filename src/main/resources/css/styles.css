@@ -10,9 +10,42 @@
     -fx-min-width: 250px;
 }
 
-.button-primary:hover {
+.button-primary:hover, .button-icon-primary:hover {
     -fx-background-color: #0056b3;
     -fx-border-color: #0056b3;
+}
+
+.button-icon-primary {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-border-color: #007bff;
+    -fx-border-radius: 15px;
+    -fx-padding: 10px;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-max-width: 60px;
+    -fx-max-height: 60px;
+}
+
+.button-icon-primary {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-border-color: #007bff;
+    -fx-border-radius: 15px;
+    -fx-padding: 10px;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-max-width: 60px;
+    -fx-max-height: 60px;
+}
+
+.button-icon-white {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: white;
+    -fx-border-radius: 15px;
+    -fx-padding: 5px;
+    -fx-font-weight: bold;
 }
 
 /* Estilos para botón tipo secondary */

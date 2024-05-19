@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.event.Event;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -37,6 +38,7 @@ public class CompaniesController implements ControllerInterface {
         Utils.setButtonTooltip(btnSearch, "Buscar empresa");
 
         btnHome.setOnAction(e -> Utils.openWindow(Utils.WindowType.HOME, this));
+        btnCreate.setOnAction(e -> Utils.openWindow(Utils.WindowType.COMPANY_FORM, this));
     }
 
     private void initializeModalities() {
@@ -87,8 +89,11 @@ public class CompaniesController implements ControllerInterface {
     }
 
     @Override
-    public void closeWindow() {
+    public void closeWindow(Event event) {
         Utils.openWindow(Utils.WindowType.HOME, this);
     }
+
+    @Override
+    public void initData(Object data) {}
 
 }

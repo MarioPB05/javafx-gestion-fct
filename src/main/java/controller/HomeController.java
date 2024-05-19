@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import utils.Utils;
@@ -15,9 +16,12 @@ public class HomeController implements ControllerInterface {
     }
 
     @Override
-    public void closeWindow() {
+    public void closeWindow(Event event) {
         Platform.exit();
     }
+
+    @Override
+    public void initData(Object data) {}
 
     public void openCompaniesWindow() {
         Utils.openWindow(Utils.WindowType.COMPANIES, this);

@@ -6,16 +6,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lombok.Getter;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
 public class Utils {
 
@@ -83,15 +86,40 @@ public class Utils {
         alert.showAndWait();
     }
 
+    public static boolean showConfirmationAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(null);
+        alert.setTitle(title);
+        alert.setContentText(message);
+
+        // Obtener la ventana del Alert
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+
+        // Añadir botones personalizados
+        ButtonType buttonTypeYes = new ButtonType("Continuar", ButtonType.OK.getButtonData());
+        ButtonType buttonTypeNo = new ButtonType("Cancelar", ButtonType.CANCEL.getButtonData());
+
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+        // Agregar un icono al Alert
+        stage.getIcons().add(new Image(Objects.requireNonNull(Utils.class.getResourceAsStream("/images/app-icon.png"))));
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == buttonTypeYes;
+    }
+
     /**
      * Enumerado con los tipos de ventana disponibles.
      */
+    @Getter
     public enum WindowType {
         HOME("Gestión FCT", "/views/home.fxml"),
         COMPANIES("Gestión FCT | Empresas", "/views/companies.fxml"),
         STUDENTS("Gestión FCT | Alumnos", "/views/students.fxml"),
         TUTORS("Gestión FCT | Tutores", "/views/tutors.fxml"),
-        ASSIGNMENTS("Gestión FCT | Asignaciones", "/views/assignments.fxml");
+        ASSIGNMENTS("Gestión FCT | Asignaciones", "/views/assignments.fxml"),
+
+        COMPANY_FORM("Gestión FCT | Formulario de Empresa", "/views/company_form.fxml");
 
         private final String title;
         private final String path;
@@ -99,14 +127,6 @@ public class Utils {
         WindowType(String title, String path) {
             this.title = title;
             this.path = path;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public String getPath() {
-            return path;
         }
     }
 
@@ -125,6 +145,16 @@ public class Utils {
      * @param currentController Controlador actual.
      */
     public static void openWindow(WindowType windowType, ControllerInterface currentController) {
+        openWindow(windowType, currentController, null);
+    }
+
+    /**
+     * Abre una nueva ventana en función del tipo de ventana solicitado y le pasa datos al nuevo controlador.
+     * @param windowType Tipo de ventana solicitado.
+     * @param currentController Controlador actual.
+     * @param data Datos a pasar al nuevo controlador.
+     */
+    public static void openWindow(WindowType windowType, ControllerInterface currentController, Object data) {
         warningLogger("Abriendo ventana: " + windowType.getTitle());
 
         try {
@@ -132,16 +162,21 @@ public class Utils {
             Parent root = loader.load();
 
             ControllerInterface controller = loader.getController();
+
+            if (data != null) {
+                controller.initData(data);
+            }
+
             Image icon = new Image(Objects.requireNonNull(Utils.class.getResourceAsStream("/images/app-icon.png")));
 
-            Scene scene = new Scene(root, 1280, 720);
+            Scene scene = new Scene(root);
             Stage stage = new Stage();
 
             stage.setScene(scene);
             stage.setResizable(false);
             stage.getIcons().add(icon);
             stage.setTitle(windowType.getTitle());
-            stage.setOnCloseRequest(e -> controller.closeWindow());
+            stage.setOnCloseRequest(controller::closeWindow);
 
             stage.show();
 

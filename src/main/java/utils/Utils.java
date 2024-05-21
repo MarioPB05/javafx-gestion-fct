@@ -227,4 +227,8 @@ public class Utils {
         button.setTooltip(tooltip);
     }
 
+    public static boolean empty(final String s) {
+        return s == null || s.trim().isEmpty();
+    }
+
 }

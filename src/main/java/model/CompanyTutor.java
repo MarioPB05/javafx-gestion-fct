@@ -4,6 +4,7 @@ import lombok.*;
 import utils.ConexionDB;
 import utils.Utils;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Getter
@@ -47,6 +48,33 @@ public class CompanyTutor {
         } catch (SQLException e) {
             Utils.errorLogger(e.getMessage());
             return false;
+        }
+    }
+
+    public static CompanyTutor get(Integer id) {
+        try {
+            ConexionDB database = Utils.getDatabaseConnection();
+            String query = "SELECT * FROM company_tutor WHERE id = ?";
+            Object[] params = {id};
+
+            database.ejecutarConsultaPreparada(query, params);
+
+            ResultSet result = database.getResultSet();
+
+            if (result.next()) {
+                return new CompanyTutor(
+                        result.getInt("id"),
+                        result.getString("dni"),
+                        result.getString("name"),
+                        result.getString("surname"),
+                        result.getString("phone")
+                );
+            }
+
+            return null;
+        } catch (SQLException e) {
+            Utils.errorLogger(e.getMessage());
+            return null;
         }
     }
 

@@ -6,6 +6,7 @@ import utils.Utils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @Getter
 @Setter
@@ -35,7 +36,15 @@ public class CompanyManager {
                 query = "INSERT INTO company_manager (dni, name, surname) VALUES (?, ?, ?)";
             }
 
-            Object[] params = {this.dni, this.name, this.surname};
+            ArrayList<Object> params = new ArrayList<>();
+            params.add(this.dni);
+            params.add(this.name);
+            params.add(this.surname);
+
+            if (this.id != null) {
+                params.add(this.id);
+            }
+
             int rows = database.ejecutarInstruccionPreparada(query, params);
 
             if (this.id == null) {

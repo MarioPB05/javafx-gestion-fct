@@ -10,6 +10,7 @@ import utils.Utils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @Getter
 @Setter
@@ -62,7 +63,23 @@ public class Company {
                 query = "INSERT INTO company (cif, name, address, postal_code, city, journey_type, modality, email, manager_id, tutor_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             }
 
-            Object[] params = {this.cif, this.name, this.address, this.postalCode, this.city, this.journeyType.toString(), this.modality.toString(), this.email, this.companyManager.getId(), this.companyTutor.getId()};
+            ArrayList<Object> params = new ArrayList<>();
+
+            params.add(this.cif);
+            params.add(this.name);
+            params.add(this.address);
+            params.add(this.postalCode);
+            params.add(this.city);
+            params.add(this.journeyType.toString());
+            params.add(this.modality.toString());
+            params.add(this.email);
+            params.add(this.companyManager.getId());
+            params.add(this.companyTutor.getId());
+
+            if (this.id != null) {
+                params.add(this.id);
+            }
+
             int rows = database.ejecutarInstruccionPreparada(query, params);
 
             if (this.id == null) {

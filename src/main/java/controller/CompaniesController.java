@@ -14,6 +14,7 @@ import java.util.Arrays;
 public class CompaniesController implements ControllerInterface {
 
     public Button btnCreate;
+    public Button btnEdit;
     public Button btnRemove;
     public Button btnHome;
     public Button btnSearch;
@@ -80,17 +81,20 @@ public class CompaniesController implements ControllerInterface {
 
     private void initializeButtons() {
         Utils.setButtonIcon(btnCreate, "/icons/company_create.png");
+        Utils.setButtonIcon(btnEdit, "/icons/company_edit.png");
         Utils.setButtonIcon(btnRemove, "/icons/company_remove.png");
         Utils.setButtonIcon(btnHome, "/icons/home.png");
         Utils.setButtonIcon(btnSearch, "/icons/search.png", 20, 20);
 
         Utils.setButtonTooltip(btnCreate, "Añadir empresa");
+        Utils.setButtonTooltip(btnEdit, "Editar empresa");
         Utils.setButtonTooltip(btnRemove, "Eliminar empresa");
         Utils.setButtonTooltip(btnHome, "Volver al inicio");
         Utils.setButtonTooltip(btnSearch, "Buscar empresa");
 
         btnHome.setOnAction(e -> Utils.openWindow(Utils.WindowType.HOME, this));
         btnCreate.setOnAction(e -> Utils.openWindow(Utils.WindowType.COMPANY_FORM, this));
+        btnEdit.setOnAction(e -> editCompany());
     }
 
     private void initializeModalities() {
@@ -133,6 +137,21 @@ public class CompaniesController implements ControllerInterface {
         defaultRadioButton.setSelected(true);
 
         journeysContainer.getChildren().add(defaultRadioButton);
+    }
+
+    private Company getSelectedCompany() {
+        return tblCompanies.getSelectionModel().getSelectedItem();
+    }
+
+    public void editCompany() {
+        Company company = getSelectedCompany();
+
+        if (company == null) {
+            Utils.showAlert("Error", "Debes seleccionar una empresa para poder editarla.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        Utils.openWindow(Utils.WindowType.COMPANY_FORM, this, company);
     }
 
     @Override

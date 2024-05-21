@@ -23,6 +23,7 @@ public class CompaniesController implements ControllerInterface {
     public TableView<Company> tblCompanies;
     public ObservableList<Company> companies;
     public ObservableList<Company> companiesFiltered;
+    public TextField txtSearchCompany;
 
     public void initialize() {
         initializeButtons();
@@ -99,6 +100,7 @@ public class CompaniesController implements ControllerInterface {
         btnCreate.setOnAction(e -> Utils.openWindow(Utils.WindowType.COMPANY_FORM, this));
         btnEdit.setOnAction(e -> editCompany());
         btnRemove.setOnAction(e -> removeCompany());
+        btnSearch.setOnAction(e -> searchCompany());
     }
 
     private void initializeModalities() {
@@ -204,6 +206,40 @@ public class CompaniesController implements ControllerInterface {
             }
 
             return true;
+        });
+
+        tblCompanies.setItems(companiesFiltered);
+    }
+
+    public void searchCompany() {
+        String search = txtSearchCompany.getText().toLowerCase();
+
+        if (search.isEmpty()) {
+            tblCompanies.setItems(companies);
+            return;
+        }
+
+        companiesFiltered = companies.filtered(company -> {
+            String cif = company.getCif().toLowerCase();
+            String name = company.getName().toLowerCase();
+            String address = company.getAddress().toLowerCase();
+            String postalCode = company.getPostalCode().toLowerCase();
+            String city = company.getCity().toLowerCase();
+            String email = company.getEmail().toLowerCase();
+            String modality = company.getModality().getName().toLowerCase();
+            String journey = company.getJourneyType().getName().toLowerCase();
+            String managerDNI = company.getCompanyManager().getDni().toLowerCase();
+            String managerName = company.getCompanyManager().getName().toLowerCase();
+            String managerSurname = company.getCompanyManager().getSurname().toLowerCase();
+            String tutorDNI = company.getCompanyTutor().getDni().toLowerCase();
+            String tutorName = company.getCompanyTutor().getName().toLowerCase();
+            String tutorSurname = company.getCompanyTutor().getSurname().toLowerCase();
+            String tutorPhone = company.getCompanyTutor().getPhone().toLowerCase();
+
+            return cif.contains(search) || name.contains(search) || address.contains(search) || postalCode.contains(search) ||
+                    city.contains(search) || email.contains(search) || modality.contains(search) || journey.contains(search) ||
+                    managerDNI.contains(search) || managerName.contains(search) || managerSurname.contains(search) ||
+                    tutorDNI.contains(search) || tutorName.contains(search) || tutorSurname.contains(search) || tutorPhone.contains(search);
         });
 
         tblCompanies.setItems(companiesFiltered);

@@ -96,6 +96,7 @@ public class CompaniesController implements ControllerInterface {
         btnHome.setOnAction(e -> Utils.openWindow(Utils.WindowType.HOME, this));
         btnCreate.setOnAction(e -> Utils.openWindow(Utils.WindowType.COMPANY_FORM, this));
         btnEdit.setOnAction(e -> editCompany());
+        btnRemove.setOnAction(e -> removeCompany());
     }
 
     private void initializeModalities() {
@@ -153,7 +154,12 @@ public class CompaniesController implements ControllerInterface {
         }
 
         if (Utils.showConfirmationAlert("Eliminar empresa", "¿Estás seguro de que deseas eliminar la empresa seleccionada?")) {
-            // TODO: Eliminar la empresa
+            if (company.delete()) {
+                Utils.showAlert("Empresa eliminada", "La empresa ha sido eliminada correctamente.", Alert.AlertType.INFORMATION);
+                tblCompanies.getItems().remove(company);
+            } else {
+                Utils.showAlert("Error", "Ha ocurrido un error al intentar eliminar la empresa.", Alert.AlertType.ERROR);
+            }
         }
     }
 

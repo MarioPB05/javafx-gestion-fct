@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum JourneyType {
-    PART_TIME("Parcial"),
-    FULL_TIME("Completa");
+    PART_TIME("Partida"),
+    FULL_TIME("Continua");
 
     private final String name;
 }

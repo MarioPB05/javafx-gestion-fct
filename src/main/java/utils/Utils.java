@@ -1,16 +1,16 @@
 package utils;
 
 import controller.ControllerInterface;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import lombok.Getter;
 
@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class Utils {
 
@@ -242,6 +243,18 @@ public class Utils {
 
     public static boolean isNotNumeric(String str) {
         return !isNumeric(str);
+    }
+
+    public static <S, T> void configureColumn(TableColumn<S, T> column, Callback<S, ObservableValue<T>> valueFactory) {
+        column.setCellValueFactory(cellData -> valueFactory.call(cellData.getValue()));
+    }
+
+    public static <S> Callback<S, ObservableValue<Integer>> createIntegerProperty(Function<S, Integer> extractor) {
+        return item -> new SimpleObjectProperty<>(extractor.apply(item));
+    }
+
+    public static <S> Callback<S, ObservableValue<String>> createStringProperty(Function<S, String> extractor) {
+        return item -> new SimpleObjectProperty<>(extractor.apply(item));
     }
 
 }

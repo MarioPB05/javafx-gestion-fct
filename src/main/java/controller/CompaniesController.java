@@ -21,6 +21,8 @@ public class CompaniesController implements ControllerInterface {
     public VBox modalitiesContainer;
     public VBox journeysContainer;
     public TableView<Company> tblCompanies;
+    public ObservableList<Company> companies;
+    public ObservableList<Company> companiesFiltered;
 
     public void initialize() {
         initializeButtons();
@@ -70,13 +72,13 @@ public class CompaniesController implements ControllerInterface {
         Utils.configureColumn(colTutorPhone, Utils.createStringProperty(company -> company.getCompanyTutor().getPhone()));
 
         // Añadimos las columnas a la tabla
-        tblCompanies.getColumns().addAll(
+        this.tblCompanies.getColumns().addAll(
                 colCIF, colName, colAddress, colPostalCode, colEmail, colModality, colJourney,
                 colManagerDNI, colManagerName, colManagerSurname,
                 colTutorDNI, colTutorName, colTutorSurname, colTutorPhone
         );
 
-        ObservableList<Company> companies = Company.getAllCompanies();
+        this.companies = Company.getAllCompanies();
         tblCompanies.setItems(companies);
     }
 
@@ -107,6 +109,7 @@ public class CompaniesController implements ControllerInterface {
             RadioButton radioButton = new RadioButton(modality.getName());
             radioButton.setStyle("-fx-min-width: 100px;");
             radioButton.setToggleGroup(toggleGroup);
+            radioButton.setOnAction(e -> applyFilters());
 
             // Añadir el radio button al contenedor
             modalitiesContainer.getChildren().add(radioButton);
@@ -116,6 +119,7 @@ public class CompaniesController implements ControllerInterface {
         defaultRadioButton.setStyle("-fx-min-width: 100px;");
         defaultRadioButton.setToggleGroup(toggleGroup);
         defaultRadioButton.setSelected(true);
+        defaultRadioButton.setOnAction(e -> applyFilters());
 
         modalitiesContainer.getChildren().add(defaultRadioButton);
     }
@@ -128,6 +132,7 @@ public class CompaniesController implements ControllerInterface {
             RadioButton radioButton = new RadioButton(journeyType.getName());
             radioButton.setStyle("-fx-min-width: 100px;");
             radioButton.setToggleGroup(toggleGroup);
+            radioButton.setOnAction(e -> applyFilters());
 
             // Añadir el radio button al contenedor
             journeysContainer.getChildren().add(radioButton);
@@ -137,6 +142,7 @@ public class CompaniesController implements ControllerInterface {
         defaultRadioButton.setStyle("-fx-min-width: 100px;");
         defaultRadioButton.setToggleGroup(toggleGroup);
         defaultRadioButton.setSelected(true);
+        defaultRadioButton.setOnAction(e -> applyFilters());
 
         journeysContainer.getChildren().add(defaultRadioButton);
     }
@@ -172,6 +178,35 @@ public class CompaniesController implements ControllerInterface {
         }
 
         Utils.openWindow(Utils.WindowType.COMPANY_FORM, this, company);
+    }
+
+    public void applyFilters() {
+        RadioButton selectedModality = (RadioButton) modalitiesContainer.getChildren().stream()
+                .filter(node -> node instanceof RadioButton)
+                .filter(node -> ((RadioButton) node).isSelected())
+                .findFirst()
+                .orElse(null);
+        RadioButton selectedJourney = (RadioButton) journeysContainer.getChildren().stream()
+                .filter(node -> node instanceof RadioButton)
+                .filter(node -> ((RadioButton) node).isSelected())
+                .findFirst()
+                .orElse(null);
+
+        companiesFiltered = companies.filtered(company -> {
+            if (selectedModality != null && !selectedModality.getText().equals("Todas")) {
+                return company.getModality().getName().equals(selectedModality.getText());
+            }
+
+            return true;
+        }).filtered(company -> {
+            if (selectedJourney != null && !selectedJourney.getText().equals("Todas")) {
+                return company.getJourneyType().getName().equals(selectedJourney.getText());
+            }
+
+            return true;
+        });
+
+        tblCompanies.setItems(companiesFiltered);
     }
 
     @Override

@@ -53,6 +53,7 @@ public class CompaniesController implements ControllerInterface {
         Utils.configureColumn(colName, Utils.createStringProperty(Company::getName));
         Utils.configureColumn(colAddress, Utils.createStringProperty(Company::getAddress));
         Utils.configureColumn(colPostalCode, Utils.createStringProperty(Company::getPostalCode));
+        Utils.configureColumn(colCity, Utils.createStringProperty(Company::getCity));
         Utils.configureColumn(colEmail, Utils.createStringProperty(Company::getEmail));
         Utils.configureColumn(colModality, Utils.createStringProperty(company -> company.getModality().getName()));
         Utils.configureColumn(colJourney, Utils.createStringProperty(company -> company.getJourneyType().getName()));
@@ -141,6 +142,19 @@ public class CompaniesController implements ControllerInterface {
 
     private Company getSelectedCompany() {
         return tblCompanies.getSelectionModel().getSelectedItem();
+    }
+
+    public void removeCompany() {
+        Company company = getSelectedCompany();
+
+        if (company == null) {
+            Utils.showAlert("Error", "Debes seleccionar una empresa para poder eliminarla.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        if (Utils.showConfirmationAlert("Eliminar empresa", "¿Estás seguro de que deseas eliminar la empresa seleccionada?")) {
+            // TODO: Eliminar la empresa
+        }
     }
 
     public void editCompany() {

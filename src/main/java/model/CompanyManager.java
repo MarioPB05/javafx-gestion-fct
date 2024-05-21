@@ -58,6 +58,21 @@ public class CompanyManager {
         }
     }
 
+    public Boolean delete() {
+        try {
+            ConexionDB database = Utils.getDatabaseConnection();
+            String query = "DELETE FROM company_manager WHERE id = ?";
+            Object[] params = {this.id};
+
+            int rows = database.ejecutarInstruccionPreparada(query, params);
+
+            return rows > 0;
+        } catch (SQLException e) {
+            Utils.errorLogger(e.getMessage());
+            return false;
+        }
+    }
+
     public static CompanyManager get(Integer id) {
         try {
             ConexionDB database = Utils.getDatabaseConnection();

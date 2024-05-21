@@ -93,6 +93,25 @@ public class Company {
         }
     }
 
+    public Boolean delete() {
+        try {
+            ConexionDB database = Utils.getDatabaseConnection();
+            String query = "DELETE FROM company WHERE id = ?";
+            Object[] params = {this.id};
+
+            int rows = database.ejecutarInstruccionPreparada(query, params);
+
+            if (!this.companyManager.delete() || !this.companyTutor.delete()) {
+                return false;
+            }
+
+            return rows > 0;
+        } catch (SQLException e) {
+            Utils.errorLogger(e.getMessage());
+            return false;
+        }
+    }
+
     public static ObservableList<Company> getAllCompanies() {
         ObservableList<Company> companies = FXCollections.observableArrayList();
 

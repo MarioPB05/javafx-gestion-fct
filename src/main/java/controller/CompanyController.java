@@ -56,6 +56,7 @@ public class CompanyController implements ControllerInterface {
     @FXML
     private TextField txtTutorSurname;
 
+    private Company currentCompany;
     private boolean isEditMode = false;
 
     @Override
@@ -78,7 +79,28 @@ public class CompanyController implements ControllerInterface {
     public void initData(Object data) {
         if (data == null) return;
 
-        isEditMode = true;
+        if (data instanceof Company company) {
+            txtCompanyCIF.setText(company.getCif());
+            txtCompanyName.setText(company.getName());
+            txtCompanyAddress.setText(company.getAddress());
+            txtCompanyPostalCode.setText(company.getPostalCode());
+            txtCompanyCity.setText(company.getCity());
+            choiceCompanyJourney.setValue(company.getJourneyType());
+            choiceCompanyModality.setValue(company.getModality());
+            txtCompanyEmail.setText(company.getEmail());
+
+            txtManagerDNI.setText(company.getCompanyManager().getDni());
+            txtManagerName.setText(company.getCompanyManager().getName());
+            txtManagerSurname.setText(company.getCompanyManager().getSurname());
+
+            txtTutorDNI.setText(company.getCompanyTutor().getDni());
+            txtTutorName.setText(company.getCompanyTutor().getName());
+            txtTutorSurname.setText(company.getCompanyTutor().getSurname());
+            txtTutorPhone.setText(company.getCompanyTutor().getPhone());
+
+            currentCompany = company;
+            isEditMode = true;
+        }
     }
 
     private void initializeChoiceBoxes() {
@@ -293,7 +315,13 @@ public class CompanyController implements ControllerInterface {
 
         Company company = getCompany();
 
-        if (company.checkExistence()) {
+        if (isEditMode) {
+            company.setId(currentCompany.getId());
+            company.getCompanyManager().setId(currentCompany.getCompanyManager().getId());
+            company.getCompanyTutor().setId(currentCompany.getCompanyTutor().getId());
+        }
+
+        if (company.checkExistence() && !isEditMode) {
             Utils.showAlert("Empresa ya existente", "Ya existe una empresa con el CIF introducido", Alert.AlertType.ERROR);
             return;
         }
@@ -301,10 +329,9 @@ public class CompanyController implements ControllerInterface {
         if (company.save()) {
             if (isEditMode) {
                 Utils.showAlert("Empresa modificada correctamente", "La empresa se ha modificado correctamente", Alert.AlertType.INFORMATION);
-                return;
+            }else {
+                Utils.showAlert("Empresa creada correctamente", "La empresa se ha creado correctamente", Alert.AlertType.INFORMATION);
             }
-
-            Utils.showAlert("Empresa creada correctamente", "La empresa se ha creado correctamente", Alert.AlertType.INFORMATION);
         }else {
             Utils.showAlert("Error al crear la empresa", "Ha ocurrido un error al intentar crear la empresa", Alert.AlertType.ERROR);
         }

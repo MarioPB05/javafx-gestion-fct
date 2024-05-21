@@ -24,7 +24,7 @@
          </font>
       </Label>
       <HBox alignment="CENTER_RIGHT" layoutX="859.0" prefHeight="80.0" prefWidth="407.0" spacing="10.0">
-         <TextField prefHeight="40.0" prefWidth="250.0" promptText="Buscar empresas...">
+         <TextField fx:id="txtSearchCompany" prefHeight="40.0" prefWidth="250.0" promptText="Buscar empresas...">
             <font>
                <Font size="14.0" />
             </font>

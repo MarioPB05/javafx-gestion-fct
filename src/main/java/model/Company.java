@@ -2,10 +2,13 @@ package model;
 
 import enums.JourneyType;
 import enums.Modality;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import lombok.*;
 import utils.ConexionDB;
 import utils.Utils;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Getter
@@ -70,6 +73,44 @@ public class Company {
         } catch (SQLException e) {
             Utils.errorLogger(e.getMessage());
             return false;
+        }
+    }
+
+    public static ObservableList<Company> getAllCompanies() {
+        ObservableList<Company> companies = FXCollections.observableArrayList();
+
+        try {
+            ConexionDB database = Utils.getDatabaseConnection();
+            String query = "SELECT * FROM company";
+            database.ejecutarConsulta(query);
+            ResultSet result = database.getResultSet();
+
+            while (result.next()) {
+                CompanyManager companyManager = CompanyManager.get(result.getInt("manager_id"));
+                CompanyTutor companyTutor = CompanyTutor.get(result.getInt("tutor_id"));
+
+                Company company = new Company(
+                        result.getInt("id"),
+                        result.getString("cif"),
+                        result.getString("name"),
+                        result.getString("address"),
+                        result.getString("postal_code"),
+                        result.getString("city"),
+                        JourneyType.valueOf(result.getString("journey_type")),
+                        Modality.valueOf(result.getString("modality")),
+                        result.getString("email"),
+                        companyManager,
+                        companyTutor
+                );
+
+                companies.add(company);
+            }
+
+            return companies;
+        }catch (SQLException e) {
+            Utils.errorLogger(e.getMessage());
+
+            return null;
         }
     }
 

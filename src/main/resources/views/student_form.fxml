@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="720.0" prefWidth="640.0" stylesheets="@../css/styles.css"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.StudentController">
+    <TabPane fx:id="tabsForm" prefHeight="680.0" prefWidth="1280.0">
+        <Tab closable="false" text="Añadir Alumnos">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0">
+                <padding>
+                    <Insets bottom="50.0" left="50.0" right="50.0" top="20.0"/>
+                </padding>
+                <HBox alignment="CENTER" prefWidth="200.0" spacing="40.0">
+                    <VBox alignment="CENTER_LEFT" prefWidth="442.0" spacing="5.0">
+                        <Label text="Nombre:">
+                            <font>
+                                <Font name="System Bold" size="14.0"/>
+                            </font>
+                        </Label>
+                        <TextField fx:id="txtStudentName" prefHeight="25.0" prefWidth="100.0"/>
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER" prefWidth="200.0" spacing="40.0">
+                    <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="442.0" spacing="5.0">
+                        <Label text="Apellidos:">
+                            <font>
+                                <Font name="System Bold" size="14.0"/>
+                            </font>
+                        </Label>
+                        <TextField fx:id="txtStudentSurname" prefHeight="25.0" prefWidth="100.0"/>
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER" prefWidth="200.0" spacing="40.0">
+                    <VBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="5.0">
+                        <Label text="DNI">
+                            <font>
+                                <Font name="System Bold" size="14.0"/>
+                            </font>
+                        </Label>
+                        <TextField fx:id="txtStudentDNI" prefHeight="25.0" prefWidth="200.0"/>
+                    </VBox>
+                    <VBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="5.0">
+                        <Label text="Fecha de Nacimiento">
+                            <font>
+                                <Font name="System Bold" size="14.0"/>
+                            </font>
+                        </Label>
+                        <DatePicker fx:id="txtStudentBirthdate" prefHeight="25.0" prefWidth="204.0"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </Tab>
+        <Tab closable="false" text="Datos a Exportar">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <TableView fx:id="tblStudents" layoutX="26.0" layoutY="72.0" prefHeight="541.0" prefWidth="589.0">
+                    <columns>
+                        <TableColumn fx:id="colStudentName" prefWidth="150.0" text="Nombre"/>
+                        <TableColumn fx:id="colStudentSurname" prefWidth="180.0" text="Apellidos"/>
+                        <TableColumn fx:id="colStudentDNI" prefWidth="120.0" text="DNI"/>
+                        <TableColumn fx:id="colStudentBirthdate" prefWidth="138.0" text="Fecha Nacimiento"/>
+                    </columns>
+                </TableView>
+                <Button fx:id="btnEdit" layoutX="26.0" layoutY="18.0" mnemonicParsing="false"
+                        styleClass="button-secondary" text="Editar Alumno"/>
+                <Button fx:id="btnRemove" layoutX="479.0" layoutY="18.0" mnemonicParsing="false"
+                        styleClass="button-secondary" text="Eliminar Alumno"/>
+            </AnchorPane>
+        </Tab>
+    </TabPane>
+    <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0" spacing="25.0">
+        <Button fx:id="btnAdd" mnemonicParsing="false" styleClass="button-primary" text="Añadir Alumno">
+            <font>
+                <Font size="17.0"/>
+            </font>
+        </Button>
+        <Button fx:id="btnCancel" mnemonicParsing="false" styleClass="button-secondary" text="Cancelar"/>
+        <Button fx:id="btnExport" mnemonicParsing="false" styleClass="button-primary" text="Exportar Datos">
+            <font>
+                <Font size="17.0"/>
+            </font>
+        </Button>
+    </HBox>
+</VBox>

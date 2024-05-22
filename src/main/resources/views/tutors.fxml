@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TutorsController">
+    <VBox alignment="CENTER" prefHeight="720.0" prefWidth="100.0" spacing="35.0">
+        <Button fx:id="btnImport" maxHeight="40.0" maxWidth="40.0" mnemonicParsing="false" styleClass="button-icon-primary" />
+        <Button fx:id="btnRemove" maxHeight="40.0" maxWidth="40.0" mnemonicParsing="false" styleClass="button-icon-primary" />
+        <Button fx:id="btnHome" maxHeight="40.0" maxWidth="40.0" mnemonicParsing="false" styleClass="button-icon-primary" />
+    </VBox>
+    <Pane prefHeight="80.0" prefWidth="1280.0" style="-fx-background-color: #007bff;">
+        <Label layoutX="30.0" layoutY="23.0" text="Gestionar Tutores" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+        <HBox alignment="CENTER_RIGHT" layoutX="859.0" prefHeight="80.0" prefWidth="407.0" spacing="10.0">
+            <TextField fx:id="txtSearchTutor" prefHeight="40.0" prefWidth="250.0" promptText="Buscar tutores...">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </TextField>
+            <Button fx:id="btnSearch" maxHeight="40.0" maxWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="button-icon-white">
+                <font>
+                    <Font size="1.0" />
+                </font>
+            </Button>
+        </HBox>
+    </Pane>
+    <VBox alignment="CENTER" layoutX="141.0" layoutY="80.0" prefHeight="642.0" prefWidth="900.0">
+        <TableView fx:id="tblTutors" prefHeight="583.0">
+            <columns>
+                <TableColumn fx:id="colTutorName" prefWidth="150.0" text="Nombre" />
+                <TableColumn fx:id="colTutorSurname" prefWidth="200.0" text="Apellidos" />
+                <TableColumn fx:id="colTutorEmail" prefWidth="250.0" text="Correo Electrónico" />
+                <TableColumn fx:id="colTutorPhone" prefWidth="150.0" text="Teléfono" />
+            </columns></TableView>
+    </VBox>
+</Pane>

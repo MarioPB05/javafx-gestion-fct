@@ -21,7 +21,7 @@ public class Student implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private int id;
+    private Integer id;
     private String dni;
     private String name;
     private String surname;
@@ -42,9 +42,14 @@ public class Student implements Serializable {
 
             int rows = database.ejecutarInstruccionPreparada(query, params);
 
+            if (this.id != null) {
+                this.id = database.ultimoID("id", "student");
+            }
+
             return rows > 0;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            Utils.errorLogger(e.getMessage());
+            return false;
         }
     }
 

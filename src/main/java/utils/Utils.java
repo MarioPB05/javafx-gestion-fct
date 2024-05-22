@@ -264,4 +264,8 @@ public class Utils {
         return date != null ? date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) : "";
     }
 
+    public static String formatDateDatabase(LocalDate date) {
+        return date != null ? date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "";
+    }
+
 }

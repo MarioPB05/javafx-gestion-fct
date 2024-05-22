@@ -120,7 +120,8 @@ public class Utils {
         TUTORS("Gestión FCT | Tutores", "/views/tutors.fxml"),
         ASSIGNMENTS("Gestión FCT | Asignaciones", "/views/assignments.fxml"),
 
-        COMPANY_FORM("Gestión FCT | Formulario de Empresa", "/views/company_form.fxml");
+        COMPANY_FORM("Gestión FCT | Formulario de Empresa", "/views/company_form.fxml"),
+        STUDENT_FORM("Gestión FCT | Formulario de Alumno", "/views/student_form.fxml");
 
         private final String title;
         private final String path;

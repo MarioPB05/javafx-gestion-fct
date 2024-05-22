@@ -16,6 +16,8 @@ import lombok.Getter;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
@@ -256,6 +258,10 @@ public class Utils {
 
     public static <S> Callback<S, ObservableValue<String>> createStringProperty(Function<S, String> extractor) {
         return item -> new SimpleObjectProperty<>(extractor.apply(item));
+    }
+
+    public static String formatDate(LocalDate date) {
+        return date != null ? date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) : "";
     }
 
 }

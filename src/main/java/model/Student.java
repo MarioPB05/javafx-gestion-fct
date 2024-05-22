@@ -1,13 +1,19 @@
 package model;
 
 import lombok.*;
+
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @EqualsAndHashCode
 @AllArgsConstructor
-public class Student {
+public class Student implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private int id;
     private String dni;

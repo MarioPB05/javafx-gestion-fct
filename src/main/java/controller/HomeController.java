@@ -31,6 +31,10 @@ public class HomeController implements ControllerInterface {
         Utils.openWindow(Utils.WindowType.STUDENTS, this);
     }
 
+    public void openStudentsExportWindow() {
+        Utils.openWindow(Utils.WindowType.STUDENT_FORM, this);
+    }
+
     public void openTutorsWindow() {
         Utils.openWindow(Utils.WindowType.TUTORS, this);
     }

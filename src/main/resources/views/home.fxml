@@ -46,10 +46,11 @@
                <String fx:value="button-primary-big" />
             </styleClass>
          </Button>
-         <MenuButton contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openStudentsWindow" styleClass="menu-button-primary" text="Gestión de Alumnos" textFill="WHITE">
+         <MenuButton contentDisplay="RIGHT" mnemonicParsing="false" styleClass="menu-button-primary" text="Gestión de Alumnos" textFill="WHITE">
             <items>
-               <MenuItem mnemonicParsing="false" text="Generar Datos" />
+               <MenuItem mnemonicParsing="false" onAction="#openStudentsExportWindow" text="Generar Datos" />
                <MenuItem mnemonicParsing="false" text="Importar Datos" />
+               <MenuItem mnemonicParsing="false" onAction="#openStudentsWindow" text="Ver Datos" />
             </items>
          </MenuButton>
          <Button mnemonicParsing="false" onAction="#openTutorsWindow" text="Gestión de Tutores">

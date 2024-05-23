@@ -68,6 +68,10 @@ public class AssignmentsController implements ControllerInterface {
     private void remove() {
         Assignment assigment = tblAssignment.getSelectionModel().getSelectedItem();
         if (assigment != null) {
+            if (!Utils.showConfirmationAlert("Eliminar asignación", "¿Estás seguro de que quieres eliminar la asignación?")) {
+                return;
+            }
+
             if (assigment.delete()) {
                 Utils.showAlert("Asignación eliminada correctamente", "La asignación ha sido eliminada correctamente", Alert.AlertType.INFORMATION);
 

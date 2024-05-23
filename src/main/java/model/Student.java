@@ -96,4 +96,36 @@ public class Student implements Serializable {
         }
     }
 
+    public static Student get(Integer id) {
+        try {
+            ConexionDB database = Utils.getDatabaseConnection();
+            String query = "SELECT * FROM student WHERE id = ?";
+            Object[] params = {id};
+
+            database.ejecutarConsultaPreparada(query, params);
+
+            ResultSet result = database.getResultSet();
+
+            if (result.next()) {
+                return new Student(
+                        result.getInt("id"),
+                        result.getString("dni"),
+                        result.getString("name"),
+                        result.getString("surname"),
+                        result.getDate("birthdate").toLocalDate()
+                );
+            }
+
+            return null;
+        } catch (SQLException e) {
+            Utils.errorLogger(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return this.name + " " + this.surname + " (" + this.dni + ")";
+    }
+
 }

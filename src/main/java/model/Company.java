@@ -150,4 +150,44 @@ public class Company {
         }
     }
 
+    public static Company get(Integer id) {
+        try {
+            ConexionDB database = Utils.getDatabaseConnection();
+            String query = "SELECT * FROM company WHERE id = ?";
+            Object[] params = {id};
+
+            database.ejecutarConsultaPreparada(query, params);
+            ResultSet result = database.getResultSet();
+
+            if (result.next()) {
+                CompanyManager companyManager = CompanyManager.get(result.getInt("manager_id"));
+                CompanyTutor companyTutor = CompanyTutor.get(result.getInt("tutor_id"));
+
+                return new Company(
+                        result.getInt("id"),
+                        result.getString("cif"),
+                        result.getString("name"),
+                        result.getString("address"),
+                        result.getString("postal_code"),
+                        result.getString("city"),
+                        JourneyType.valueOf(result.getString("journey_type")),
+                        Modality.valueOf(result.getString("modality")),
+                        result.getString("email"),
+                        companyManager,
+                        companyTutor
+                );
+            }
+
+            return null;
+        } catch (SQLException e) {
+            Utils.errorLogger(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return this.name + ", " + this.city + " (" + this.cif + ")";
+    }
+
 }

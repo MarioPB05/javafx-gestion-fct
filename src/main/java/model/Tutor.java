@@ -89,4 +89,35 @@ public class Tutor {
         }
     }
 
+    public static Tutor get(Integer id) {
+        try {
+            ConexionDB database = Utils.getDatabaseConnection();
+            String query = "SELECT * FROM tutor WHERE id = ?";
+            Object[] params = {id};
+
+            database.ejecutarConsultaPreparada(query, params);
+
+            ResultSet result = database.getResultSet();
+
+            if (result.next()) {
+                return new Tutor(
+                    result.getInt("id"),
+                    result.getString("name"),
+                    result.getString("surname"),
+                    result.getString("email"),
+                    result.getString("phone")
+                );
+            }
+        } catch (SQLException e) {
+            Utils.errorLogger(e.getMessage());
+        }
+
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return this.name + " " + this.surname + " (" + this.email + ")";
+    }
+
 }

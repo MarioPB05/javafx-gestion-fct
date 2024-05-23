@@ -123,7 +123,8 @@ public class Utils {
         ASSIGNMENTS("Gestión FCT | Asignaciones", "/views/assignments.fxml"),
 
         COMPANY_FORM("Gestión FCT | Formulario de Empresa", "/views/company_form.fxml"),
-        STUDENT_FORM("Gestión FCT | Formulario de Alumno", "/views/student_form.fxml");
+        STUDENT_FORM("Gestión FCT | Formulario de Alumno", "/views/student_form.fxml"),
+        ASSIGMENT_FORM("Gestión FCT | Formulario de Asignación", "/views/assignment_form.fxml");
 
         private final String title;
         private final String path;
@@ -167,10 +168,6 @@ public class Utils {
 
             ControllerInterface controller = loader.getController();
 
-            if (data != null) {
-                controller.initData(data);
-            }
-
             Image icon = new Image(Objects.requireNonNull(Utils.class.getResourceAsStream("/images/app-icon.png")));
 
             Scene scene = new Scene(root);
@@ -182,9 +179,11 @@ public class Utils {
             stage.setTitle(windowType.getTitle());
             stage.setOnCloseRequest(controller::closeWindow);
 
-            stage.show();
-
-            infoLogger("Ventana abierta correctamente.");
+            stage.setOnShown(e -> {
+                if (data != null) {
+                    controller.initData(data);
+                }
+            });
 
             if (currentController != null) {
                 Stage myStage = currentController.getStage();
@@ -195,6 +194,10 @@ public class Utils {
 
                 myStage.close();
             }
+
+            stage.show();
+
+            infoLogger("Ventana abierta correctamente.");
         }catch (IOException | NullPointerException e) {
             Utils.errorLogger(e.getMessage());
         }

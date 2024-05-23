@@ -7,13 +7,16 @@ import javafx.event.Event;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.Company;
 import model.Student;
+import model.Tutor;
 import utils.Utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class HomeController implements ControllerInterface {
 
@@ -69,6 +72,25 @@ public class HomeController implements ControllerInterface {
     }
 
     public void openAssignmentsWindow() {
+        ObservableList<Student> students = FXCollections.observableArrayList(Objects.requireNonNull(Student.getStudents()));
+        ObservableList<Tutor> tutors = FXCollections.observableArrayList(Objects.requireNonNull(Tutor.getTutors()));
+        ObservableList<Company> companies = FXCollections.observableArrayList(Objects.requireNonNull(Company.getAllCompanies()));
+
+        if (students.isEmpty()) {
+            Utils.showAlert("No hay alumnos", "Debes añadir alumnos antes de poder gestionar las asignaciones", javafx.scene.control.Alert.AlertType.ERROR);
+            return;
+        }
+
+        if (tutors.isEmpty()) {
+            Utils.showAlert("No hay tutores", "Debes añadir tutores antes de poder gestionar las asignaciones", javafx.scene.control.Alert.AlertType.ERROR);
+            return;
+        }
+
+        if (companies.isEmpty()) {
+            Utils.showAlert("No hay empresas", "Debes añadir empresas antes de poder gestionar las asignaciones", javafx.scene.control.Alert.AlertType.ERROR);
+            return;
+        }
+
         Utils.openWindow(Utils.WindowType.ASSIGNMENTS, this);
     }
 
